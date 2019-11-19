@@ -6,6 +6,7 @@ import com.tuanlq.midexam.services.DepartmentService;
 import com.tuanlq.midexam.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,7 +28,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    public ModelAndView listEmployees(@RequestParam("s")Optional<String> s, Pageable pageable){
+    public ModelAndView listEmployees(@RequestParam("s")Optional<String> s,@PageableDefault(size = 10)Pageable pageable){
         Page<Employee> employees;
         if(s.isPresent()){
             employees = employeeService.findAllByNameContaining(s.get(), pageable);
