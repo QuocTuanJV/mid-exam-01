@@ -58,10 +58,48 @@ public class DepartmentController {
     }
 
     @PostMapping("/delete-department")
-        public String deleteProvince(@ModelAttribute("department") Department department){
+        public String deleteDepartment(@ModelAttribute("department") Department department){
             departmentService.remove(department.getId());
             return "redirect:departments";
     }
+
+     @GetMapping("/edit-department/{id}")
+    public ModelAndView getFormEditDepartment(@PathVariable Long id){
+        Department department = departmentService.findById(id);
+        if(department !=null){
+            ModelAndView modelAndView = new ModelAndView("/department/edit");
+            modelAndView.addObject("department", department);
+            return modelAndView;
+        } else{
+            ModelAndView modelAndView = new ModelAndView("/error.404");
+            return modelAndView;
+        }
+    }
+    @PostMapping("/edit-department")
+    public ModelAndView updateDepartment(@ModelAttribute Department department)
+    {
+        departmentService.save(department);
+        ModelAndView modelAndView = new ModelAndView("/department/edit");
+        modelAndView.addObject("department",department);
+        modelAndView.addObject("message", "Department update successfully");
+        return modelAndView;
+    }
+    @GetMapping("/view-department/{id}")
+    public ModelAndView viewDepartment(@PathVariable Long id)
+    {
+        Department department = departmentService.findById(id);
+        if(department == null){
+            ModelAndView modelAndView = new ModelAndView("/error.404");
+        }
+        Iterable<Employee> employees = employeeService.findAllByDepartment(department);
+        ModelAndView modelAndView = new ModelAndView("/department/view");
+        modelAndView.addObject("department",department);
+        modelAndView.addObject("employees",employees);
+        return modelAndView;
+    }
+
+
+
 
 
 

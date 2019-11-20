@@ -6,7 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MenuController {
-    @GetMapping("")
+    @GetMapping("/home")
     public ModelAndView getFormMenu(){
         ModelAndView modelAndView = new ModelAndView("/menu");
         return modelAndView;

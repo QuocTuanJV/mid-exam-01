@@ -8,6 +8,9 @@
     <h1>Delete department</h1>
     <h2>Are you sure?</h2>
     <p>
+        <a href="/home">Menu</a>
+    </p>
+    <p>
         <a href="/departments">Department list</a>
     </p>
     <form th:action="@{/delete-department}" th:object="${department}" method="post">

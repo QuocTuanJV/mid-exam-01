@@ -7,12 +7,15 @@
 <body>
     <h1>Edit department</h1>
     <p>
+        <a href="/home">Menu</a>
+    </p>
+    <p>
         <a href="/departments">Department list</a>
     </p>
     <th:block th:if="${message}">
         <p th:text="${message}"></p>
     </th:block>
-    <form th:action="@{/edit}" th:object="${department}" method="post">
+    <form th:action="@{/edit-department}" th:object="${department}" method="post">
         <input th:type="hidden" name="id" th:field="*{id}">
         <table>
             <tr>
